@@ -1,0 +1,76 @@
+{
+    "regions": {
+        "Yosemite": {
+            "areas": {
+                "Yosemite Valley": {
+                    "crags": [
+                        "El Capitan",
+                        "Half Dome",
+                        "Royal Arches",
+                        "Cathedral Rocks"
+                    ]
+                },
+                "Tuolumne Meadows": {
+                    "crags": [
+                        "Cathedral Peak",
+                        "Lembert Dome",
+                        "Fairview Dome"
+                    ]
+                }
+            }
+        },
+        "Eastern Sierra": {
+            "areas": {
+                "Bishop": {
+                    "crags": [
+                        "Buttermilks",
+                        "Happy Boulders",
+                        "Sad Boulders",
+                        "Owens River Gorge"
+                    ]
+                },
+                "Mammoth": {
+                    "crags": [
+                        "Clark Canyon",
+                        "Sherwin Plateau"
+                    ]
+                }
+            }
+        },
+        "Lake Tahoe": {
+            "areas": {
+                "Tahoe Areas": {
+                    "crags": [
+                        "Donner Summit",
+                        "Lover's Leap",
+                        "Phantom Spires",
+                        "Big Chief"
+                    ]
+                }
+            }
+        },
+        "Bay Area": {
+            "areas": {
+                "Bay Crags": {
+                    "crags": [
+                        "Castle Rock",
+                        "Indian Rock",
+                        "Mount Diablo"
+                    ]
+                }
+            }
+        },
+        "Southern California": {
+            "areas": {
+                "Desert": {
+                    "crags": [
+                        "Joshua Tree",
+                        "Tahquitz Rock",
+                        "Malibu Creek",
+                        "Suicide Rock"
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,1 +1,37 @@
 @import "tailwindcss";
+
+/* Ensure Mapbox canvas is visible and properly styled */
+.mapboxgl-map {
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+  top: 0;
+  left: 0;
+}
+
+.mapboxgl-canvas-container {
+  position: absolute !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.mapboxgl-canvas {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Ensure map controls are visible */
+.mapboxgl-ctrl-group {
+  background: white;
+}
+
+.mapboxgl-ctrl button {
+  background: white;
+}
+
+.mapboxgl-ctrl-attrib {
+  background: rgba(255, 255, 255, 0.8);
+}

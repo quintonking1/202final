@@ -7,14 +7,21 @@
                         "El Capitan",
                         "Half Dome",
                         "Royal Arches",
-                        "Cathedral Rocks"
+                        "Cathedral Rocks",
+                        "Washington Column",
+                        "Sentinel Rock",
+                        "Cookie Cliff",
+                        "Middle Cathedral Rock"
                     ]
                 },
                 "Tuolumne Meadows": {
                     "crags": [
                         "Cathedral Peak",
                         "Lembert Dome",
-                        "Fairview Dome"
+                        "Fairview Dome",
+                        "Daff Dome",
+                        "Medlicott Dome",
+                        "Pywiack Dome"
                     ]
                 }
             }
@@ -26,48 +33,112 @@
                         "Buttermilks",
                         "Happy Boulders",
                         "Sad Boulders",
-                        "Owens River Gorge"
+                        "Owens River Gorge",
+                        "Volcanic Tablelands",
+                        "Rock Creek"
                     ]
                 },
                 "Mammoth": {
                     "crags": [
                         "Clark Canyon",
-                        "Sherwin Plateau"
+                        "Sherwin Plateau",
+                        "Benton Crags"
                     ]
                 }
             }
         },
         "Lake Tahoe": {
             "areas": {
-                "Tahoe Areas": {
+                "South Lake Tahoe": {
+                    "crags": [
+                        "Lovers Leap",
+                        "Phantom Spires",
+                        "Sugarloaf"
+                    ]
+                },
+                "North Lake Tahoe": {
                     "crags": [
                         "Donner Summit",
-                        "Lover's Leap",
-                        "Phantom Spires",
-                        "Big Chief"
+                        "Big Chief",
+                        "Castle Peak"
                     ]
                 }
             }
         },
         "Bay Area": {
             "areas": {
-                "Bay Crags": {
+                "East Bay": {
+                    "crags": [
+                        "Indian Rock",
+                        "Mortar Rock",
+                        "Grizzly Peak",
+                        "Remillard Park"
+                    ]
+                },
+                "South Bay": {
                     "crags": [
                         "Castle Rock",
-                        "Indian Rock",
-                        "Mount Diablo"
+                        "Mount Diablo",
+                        "Cragmont",
+                        "Mission Peak"
+                    ]
+                },
+                "North Bay": {
+                    "crags": [
+                        "Mount Tamalpais",
+                        "Ring Mountain",
+                        "Stinson Beach Boulders"
                     ]
                 }
             }
         },
         "Southern California": {
             "areas": {
-                "Desert": {
+                "Joshua Tree": {
                     "crags": [
-                        "Joshua Tree",
+                        "Hidden Valley",
+                        "Real Hidden Valley",
+                        "Barker Dam",
+                        "Queen Valley",
+                        "Indian Cove",
+                        "Intersection Rock",
+                        "Jumbo Rocks",
+                        "Ryan Campground"
+                    ]
+                },
+                "San Bernardino Mountains": {
+                    "crags": [
+                        "Holcomb Valley",
+                        "Deep Creek",
+                        "Williamson Rock"
+                    ]
+                },
+                "San Gabriel Mountains": {
+                    "crags": [
+                        "Williamson Rock",
+                        "Stoney Point",
+                        "Horse Flats"
+                    ]
+                },
+                "Idyllwild": {
+                    "crags": [
                         "Tahquitz Rock",
+                        "Suicide Rock",
+                        "Lily Rock"
+                    ]
+                },
+                "Los Angeles": {
+                    "crags": [
                         "Malibu Creek",
-                        "Suicide Rock"
+                        "Stoney Point",
+                        "Echo Cliffs"
+                    ]
+                },
+                "San Diego": {
+                    "crags": [
+                        "Mission Gorge",
+                        "Santee Boulders",
+                        "Mount Woodson"
                     ]
                 }
             }

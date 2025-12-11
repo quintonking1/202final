@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import { formatDistance } from '../utils/geolocation'
 
 const RouteCard = ({ route }) => {
     // Determine grade difficulty level for badge styling
@@ -100,14 +99,7 @@ const RouteCard = ({ route }) => {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                     <div className="flex flex-col gap-1 text-sm text-[#515151]">
-                        <div className="flex items-center gap-2">
-                            <p>{route.area} - {route.crag}</p>
-                            {route.distance !== undefined && (
-                                <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">
-                                    {formatDistance(route.distance)}
-                                </span>
-                            )}
-                        </div>
+                        <p>{route.area} - {route.crag}</p>
                     </div>
                 </div>
 

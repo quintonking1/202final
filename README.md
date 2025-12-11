@@ -39,7 +39,7 @@ A React application for discovering and exploring climbing routes using interact
    
    Edit `.env` and add your Mapbox token:
    ```
-   VITE_MAPBOX_TOKEN=your_actual_mapbox_token_here
+   VITE_MAPBOX_TOKEN= mapbox token goes here. 
    ```
 
 4. **Start the development server**
@@ -47,7 +47,6 @@ A React application for discovering and exploring climbing routes using interact
    npm run dev
    ```
    
-   The app will be available at `http://localhost:5173`
 
 ## Available Scripts
 

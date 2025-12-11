@@ -1,11 +1,9 @@
 
 
 export function mapDifficultyToGrades(level, type) {
-    // Make everything lowercase so it works no matter how it's typed
     const difficultyLevel = level.toLowerCase()
 
-    // Sport/Trad/Alpine use the YDS system (5.6, 5.7, 5.10a, etc.)
-    // Boulder uses V-scale (V0, V1, V2, etc.)
+
     const gradeMap = {
         Sport: {
             beginner: ['5.6', '5.7', '5.8', '5.9'],
@@ -59,7 +57,7 @@ export function filterRoutes(routes, filters, searchQuery = '') {
             const regionMatch = route.region.toLowerCase().includes(searchLower)
             const typeMatch = route.type.toLowerCase().includes(searchLower)
 
-            // Return true if ANY of these match
+
             return nameMatch || areaMatch || cragMatch || regionMatch || typeMatch
         })
     }
@@ -68,7 +66,7 @@ export function filterRoutes(routes, filters, searchQuery = '') {
     // Check if user selected any locations
     if (filters.locations && filters.locations.length > 0) {
         filteredRoutes = filteredRoutes.filter(route => {
-            // Check if this route matches ANY of the selected locations
+
             let matchesAnyLocation = false
 
             for (let i = 0; i < filters.locations.length; i++) {
@@ -138,21 +136,26 @@ export function filterRoutes(routes, filters, searchQuery = '') {
     // Check if user selected length ranges
     if (filters.lengths && filters.lengths.length > 0) {
         filteredRoutes = filteredRoutes.filter(route => {
-            // Check if route matches selected length ranges
+            // Check if route matches selected length ranges based on pitches
             let matchesAnyLength = false
 
             for (let i = 0; i < filters.lengths.length; i++) {
                 const lengthRange = filters.lengths[i]
 
-                if (lengthRange === 'short' && route.lengthFt < 100) {
+                // Match based on pitch count
+                if (lengthRange === '1 pitch' && route.pitches === 1) {
                     matchesAnyLength = true
                     break
                 }
-                if (lengthRange === 'medium' && route.lengthFt >= 100 && route.lengthFt < 300) {
+                if (lengthRange === '2-3 pitches' && route.pitches >= 2 && route.pitches <= 3) {
                     matchesAnyLength = true
                     break
                 }
-                if (lengthRange === 'long' && route.lengthFt >= 300) {
+                if (lengthRange === '4-6 pitches' && route.pitches >= 4 && route.pitches <= 6) {
+                    matchesAnyLength = true
+                    break
+                }
+                if (lengthRange === '6+ pitches' && route.pitches > 6) {
                     matchesAnyLength = true
                     break
                 }
@@ -163,17 +166,17 @@ export function filterRoutes(routes, filters, searchQuery = '') {
     }
 
 
-    // Check if selected a minimum star rating
+    // Check if  minimum star rating
     if (filters.rating && filters.rating !== 'Any rating') {
-        // Get the number from the rating string (e.g., '3+' becomes 3)
+        // Get the number from the rating string
         const minStars = parseInt(filters.rating.replace('+', ''))
 
         filteredRoutes = filteredRoutes.filter(route => {
-            // Route must have at least this many stars
+            // Route must have at least x stars
             return route.stars >= minStars
         })
     }
 
-    // Return all the routes that passed all the filters
+    // Return all the routes that passed filters
     return filteredRoutes
 }

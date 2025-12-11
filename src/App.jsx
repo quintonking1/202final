@@ -8,7 +8,6 @@ import RouteDetail from './components/RouteDetail'
 import MapView from './components/MapView'
 import InlineFilterBar from './components/InlineFilterBar'
 import { filterRoutes } from './utils/filterRoutes'
-import { getUserLocation, sortByDistance } from './utils/geolocation'
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -16,9 +15,6 @@ function App() {
   const [selectedRoute, setSelectedRoute] = useState(null)
   const [view, setView] = useState('list') // 'list' or 'map' (mobile only)
   const [isFiltersMinimized, setIsFiltersMinimized] = useState(false)
-  const [userLocation, setUserLocation] = useState(null)
-  const [locationPermission, setLocationPermission] = useState('prompt') // 'prompt', 'granted', 'denied'
-  const [showLocationBanner, setShowLocationBanner] = useState(true)
 
   // Track scroll for filter minimization
   useEffect(() => {
@@ -52,10 +48,6 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [isFiltersMinimized])
 
-  // Don't automatically request location on mount
-  // Instead, show the banner and let user click to enable
-  // This is better UX and respects user privacy
-
   // Active filters (currently applied to the route list)
   const [activeFilters, setActiveFilters] = useState({
     locations: [],
@@ -74,13 +66,8 @@ function App() {
     rating: 'Any rating'
   })
 
-  // Apply filters and search, then sort by distance if location available
-  let filteredRoutes = filterRoutes(routes, activeFilters, searchQuery)
-
-  // Sort by distance from user location if available
-  if (userLocation) {
-    filteredRoutes = sortByDistance(filteredRoutes, userLocation)
-  }
+  // Apply filters and search
+  const filteredRoutes = filterRoutes(routes, activeFilters, searchQuery)
 
   const handleFilterClick = () => {
     // Copy active filters to draft when opening modal
@@ -197,62 +184,10 @@ function App() {
             />
           </div>
 
-          {/* Location Banner */}
-          {showLocationBanner && locationPermission !== 'granted' && (
-            <div className="flex-shrink-0 mx-6 mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-              <div className="flex items-start gap-3">
-                <svg className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-                <div className="flex-1">
-                  <h3 className="text-sm font-semibold text-blue-900 mb-1">
-                    Find routes near you
-                  </h3>
-                  <p className="text-sm text-blue-800 mb-3">
-                    Enable location access to see climbing routes sorted by distance from your current location.
-                  </p>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={async () => {
-                        try {
-                          const location = await getUserLocation()
-                          setUserLocation(location)
-                          setLocationPermission('granted')
-                          setShowLocationBanner(false)
-                        } catch (error) {
-                          console.log('Location access denied:', error.message)
-                          setLocationPermission('denied')
-                        }
-                      }}
-                      className="px-3 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors"
-                    >
-                      Enable Location
-                    </button>
-                    <button
-                      onClick={() => setShowLocationBanner(false)}
-                      className="px-3 py-1.5 bg-white text-blue-600 text-sm font-medium rounded-md border border-blue-300 hover:bg-blue-50 transition-colors"
-                    >
-                      Maybe Later
-                    </button>
-                  </div>
-                </div>
-                <button
-                  onClick={() => setShowLocationBanner(false)}
-                  className="text-blue-400 hover:text-blue-600"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          )}
-
           {/* Route list (scrollable) */}
           <div className="flex-1 overflow-y-auto px-6 py-4">
             <p className="text-sm text-gray-600 mb-4">
               {filteredRoutes.length} {filteredRoutes.length === 1 ? 'route' : 'routes'} found
-              {userLocation && ' • Sorted by distance'}
             </p>
             <RouteList routes={filteredRoutes} onRouteClick={handleRouteClick} />
           </div>
@@ -291,62 +226,9 @@ function App() {
               />
             </div>
 
-            {/* Location Banner - Mobile */}
-            {showLocationBanner && locationPermission !== 'granted' && (
-              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <div className="flex items-start gap-3">
-                  <svg className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <div className="flex-1">
-                    <h3 className="text-sm font-semibold text-blue-900 mb-1">
-                      Find routes near you
-                    </h3>
-                    <p className="text-xs text-blue-800 mb-2">
-                      Enable location to see routes sorted by distance.
-                    </p>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={async () => {
-                          try {
-                            const location = await getUserLocation()
-                            setUserLocation(location)
-                            setLocationPermission('granted')
-                            setShowLocationBanner(false)
-                          } catch (error) {
-                            console.log('Location access denied:', error.message)
-                            setLocationPermission('denied')
-                          }
-                        }}
-                        className="px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-md"
-                      >
-                        Enable
-                      </button>
-                      <button
-                        onClick={() => setShowLocationBanner(false)}
-                        className="px-3 py-1.5 bg-white text-blue-600 text-xs font-medium rounded-md border border-blue-300"
-                      >
-                        Later
-                      </button>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => setShowLocationBanner(false)}
-                    className="text-blue-400"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            )}
-
             {/* Result Count */}
             <p className="text-sm text-gray-600 mt-2">
               {filteredRoutes.length} {filteredRoutes.length === 1 ? 'route' : 'routes'} found
-              {userLocation && ' • Sorted by distance'}
             </p>
 
             {/* Route List */}
